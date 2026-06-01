@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎂 Joyeux Anniversaire Mon Amour 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  background: #000;
+}
+
+/* Floating hearts background */
+.hearts-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.heart {
+  position: absolute;
+  font-size: 20px;
+  animation: floatUp 15s linear infinite;
+  opacity: 0;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Screen common styles */
+.screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s ease, visibility 1s ease;
+  padding: 20px;
+}
+
+.screen.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* SCREEN 1 - Yes/No */
+#screen1 {
+  background: linear-gradient(135deg, #1a0033 0%, #330044 50%, #1a0033 100%);
+}
+
+.question-text {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  color: #fff;
+  text-align: center;
+  margin-bottom: 50px;
+  text-shadow: 0 0 20px rgba(255, 182, 193, 0.5);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.buttons-container {
+  display: flex;
+  gap: 30px;
+  position: relative;
+}
+
+.btn-yes, .btn-no {
+  padding: 18px 50px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 1px;
+}
+
+.btn-yes {
+  background: linear-gradient(135deg, #ff6b9d, #c44569);
+  color: white;
+  box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+}
+
+.btn-yes:hover {
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 15px 40px rgba(255, 107, 157, 0.6);
+}
+
+.btn-no {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.moving-no {
+  position: absolute;
+}
+
+.suspense-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* SCREEN 2 - Code */
+#screen2 {
+  background: linear-gradient(135deg, #2c003e 0%, #1a0033 50%, #0a0014 100%);
+}
+
+.code-title {
+  font-family: 'Dancing Script', cursive;
+  color: #fff;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  margin-bottom: 15px;
+  text-align: center;
+  text-shadow: 0 0 15px rgba(255, 182, 193, 0.4);
+}
+
+.code-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 40px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.code-input-container {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.code-input {
+  width: 280px;
+  padding: 18px 25px;
+  font-size: 1.5rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 107, 157, 0.3);
+  border-radius: 15px;
+  color: #fff;
+  letter-spacing: 8px;
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.code-input:focus {
+  border-color: #ff6b9d;
+  box-shadow: 0 0 30px rgba(255, 107, 157, 0.3);
+  transform: scale(1.02);
+}
+
+.code-input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 2px;
+  font-size: 0.9rem;
+}
+
+.btn-validate {
+  padding: 15px 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #ff6b9d, #c44569);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+  font-family: 'Poppins', sans-serif;
+}
+
+.btn-validate:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(255, 107, 157, 0.6);
+}
+
+.error-message {
+  color: #ff4757;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+  text-align: center;
+}
+
+.error-message.show {
+  opacity: 1;
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+.hint-text {
+  margin-top: 25px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.8rem;
+  text-align: center;
+  font-style: italic;
+}
+
+/* SCREEN 3 - Photo */
+#screen3 {
+  background: linear-gradient(135deg, #0a0014 0%, #1a0033 50%, #2c003e 100%);
+}
+
+.photo-container {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 0 60px rgba(255, 107, 157, 0.5);
+  margin-bottom: 30px;
+  animation: zoomIn 1.5s ease;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.photo-container::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 50%;
+  background: conic-gradient(#ff6b9d, #ffd700, #ff6b9d, #ffd700, #ff6b9d);
+  z-index: -1;
+  animation: rotate 4s linear infinite;
+}
+
+@keyframes rotate {
+  to { transform: rotate(360deg); }
+}
+
+.photo-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.photo-caption {
+  font-family: 'Dancing Script', cursive;
+  color: #fff;
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  text-align: center;
+  margin-bottom: 30px;
+  animation: fadeInUp 1.5s ease 0.5s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.btn-continue {
+  padding: 15px 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #ff6b9d, #c44569);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+  font-family: 'Poppins', sans-serif;
+  animation: fadeInUp 1.5s ease 1s both;
+}
+
+.btn-continue:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(255, 107, 157, 0.6);
+}
+
+/* SCREEN 4 - Letter */
+#screen4 {
+  background: linear-gradient(135deg, #1a0033 0%, #2c003e 50%, #1a0033 100%);
+  padding: 30px 20px;
+}
+
+.letter-container {
+  max-width: 600px;
+  width: 100%;
+  background: linear-gradient(135deg, #fff8e7 0%, #ffeed5 100%);
+  border-radius: 20px;
+  padding: 40px 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  position: relative;
+  animation: fadeInUp 1.5s ease;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.letter-container::before {
+  content: '💌';
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3.5rem;
+  background: #fff8e7;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.letter-title {
+  font-family: 'Dancing Script', cursive;
+  color: #c44569;
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.letter-body {
+  font-family: 'Dancing Script', cursive;
+  color: #4a2c2a;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  line-height: 1.8;
+  text-align: left;
+  white-space: pre-line;
+}
+
+.letter-signature {
+  font-family: 'Dancing Script', cursive;
+  color: #c44569;
+  font-size: 1.4rem;
+  text-align: right;
+  margin-top: 25px;
+  font-weight: 700;
+}
+
+.btn-next {
+  margin-top: 25px;
+  padding: 15px 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #ff6b9d, #c44569);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+  font-family: 'Poppins', sans-serif;
+}
+
+.btn-next:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(255, 107, 157, 0.6);
+}
+
+/* SCREEN 5 - Cake */
+#screen5 {
+  background: linear-gradient(135deg, #0a0014 0%, #1a0033 50%, #0a0014 100%);
+}
+
+.cake-title {
+  font-family: 'Dancing Script', cursive;
+  color: #fff;
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  text-align: center;
+  margin-bottom: 10px;
+  text-shadow: 0 0 20px rgba(255, 107, 157, 0.5);
+  animation: fadeInDown 1s ease;
+}
+
+.cake-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 0.95rem;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cake-container {
+  position: relative;
+  margin: 20px 0;
+  animation: fadeInUp 1.5s ease;
+}
+
+.cake {
+  position: relative;
+  width: 280px;
+  height: 200px;
+  margin: 0 auto;
+}
+
+.cake-layer {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.cake-top {
+  width: 200px;
+  height: 60px;
+  bottom: 140px;
+  background: linear-gradient(180deg, #ffb6c1, #ff8fa3);
+  border-radius: 20px 20px 8px 8px;
+}
+
+.cake-middle {
+  width: 240px;
+  height: 70px;
+  bottom: 70px;
+  background: linear-gradient(180deg, #ffd1dc, #ffb6c1);
+}
+
+.cake-bottom {
+  width: 280px;
+  height: 70px;
+  bottom: 0;
+  background: linear-gradient(180deg, #ffe4e9, #ffd1dc);
+  border-radius: 8px 8px 20px 20px;
+}
+
+.cake-decoration {
+  position: absolute;
+  bottom: 195px;
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  letter-spacing: 10px;
+  z-index: 2;
+}
+
+.candles {
+  position: absolute;
+  bottom: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 25px;
+  z-index: 3;
+}
+
+.candle {
+  position: relative;
+  width: 8px;
+  height: 40px;
+  background: linear-gradient(180deg, #fff 0%, #fff 30%, #ff6b9d 30%, #c44569 100%);
+  border-radius: 2px;
+}
+
+.flame {
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 22px;
+  background: radial-gradient(ellipse at center bottom, #ffeb3b 0%, #ff9800 40%, #ff5722 70%, transparent 100%);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  box-shadow: 0 0 20px #ff9800, 0 0 40px #ff5722;
+  animation: flicker 0.5s ease-in-out infinite alternate;
+  transform-origin: bottom center;
+  transition: all 0.5s ease;
+}
+
+@keyframes flicker {
+  0% { transform: translateX(-50%) scale(1) rotate(-2deg); }
+  100% { transform: translateX(-50%) scale(1.1) rotate(2deg); }
+}
+
+.flame.blown {
+  opacity: 0;
+  transform: translateX(-50%) scale(0);
+}
+
+.blow-btn {
+  margin-top: 30px;
+  padding: 18px 50px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #ffd700, #ff8c00);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+  font-family: 'Poppins', sans-serif;
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4); }
+  50% { box-shadow: 0 10px 50px rgba(255, 215, 0, 0.8); }
+}
+
+.blow-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+}
+
+.blow-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  animation: none;
+}
+
+.wish-text {
+  font-family: 'Dancing Script', cursive;
+  color: #ffd700;
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  text-align: center;
+  margin-top: 30px;
+  opacity: 0;
+  transition: opacity 1s ease;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  padding: 0 20px;
+}
+
+.wish-text.show {
+  opacity: 1;
+  animation: bounceIn 1s ease;
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: #ffd700;
+  position: absolute;
+  animation: confettiFall 3s linear forwards;
+}
+
+@keyframes confettiFall {
+  to {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* Sparkle effect */
+.sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: sparkle 1.5s ease-in-out;
+}
+
+@keyframes sparkle {
+  0% { transform: scale(0); opacity: 1; }
+  50% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+/* Mobile responsive */
+@media (max-width: 480px) {
+  .code-input {
+    width: 240px;
+    font-size: 1.2rem;
+  }
+  
+  .letter-container {
+    padding: 30px 20px;
+  }
+  
+  .cake {
+    transform: scale(0.85);
+  }
+  
+  .btn-yes, .btn-no {
+    padding: 15px 35px;
+    font-size: 1.1rem;
+  }
+  
+  .buttons-container {
+    gap: 20px;
+  }
+}
+
+/* Scrollbar */
+.letter-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.letter-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.letter-container::-webkit-scrollbar-thumb {
+  background: #c44569;
+  border-radius: 3px;
+}
+</style>
+</head>
+<body>
+
+<!-- Floating hearts background -->
+<div class="hearts-bg" id="heartsBg"></div>
+
+<!-- SCREEN 1: Yes or No -->
+<div class="screen active" id="screen1">
+  <div class="suspense-icon">🎁</div>
+  <h1 class="question-text">As-tu un message secret<br>pour toi mon amour ? 💝</h1>
+  <div class="buttons-container" id="buttonsContainer">
+    <button class="btn-yes" onclick="goToCode()">Oui ❤️</button>
+    <button class="btn-no" id="btnNo" onmouseover="moveNoButton()" onclick="moveNoButton()">Non</button>
+  </div>
+</div>
+
+<!-- SCREEN 2: Code -->
+<div class="screen" id="screen2">
+  <div class="suspense-icon">🔐</div>
+  <h2 class="code-title">Entre le code secret 🔒</h2>
+  <p class="code-subtitle">Un indice... c'est la date qui a changé nos vies 💕</p>
+  <div class="code-input-container">
+    <input type="password" inputmode="numeric" maxlength="8" class="code-input" id="codeInput" placeholder="••••••••" onkeypress="if(event.key==='Enter') checkCode()">
+  </div>
+  <button class="btn-validate" onclick="checkCode()">Valider ✨</button>
+  <p class="error-message" id="errorMsg">❌ Code incorrect... Réessaye mon cœur</p>
+  <p class="hint-text">💡 Format : JJMMAAAA (jour/mois/année)</p>
+</div>
+
+<!-- SCREEN 3: Photo -->
+<div class="screen" id="screen3">
+  <div class="photo-container">
+    <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=400&h=400&fit=crop" alt="Photo" id="photoImg">
+  </div>
+  <p class="photo-caption">Le plus beau jour de ma vie 💖</p>
+  <button class="btn-continue" onclick="goToLetter()">Continuer 💌</button>
+</div>
+
+<!-- SCREEN 4: Letter -->
+<div class="screen" id="screen4">
+  <div class="letter-container">
+    <h2 class="letter-title">Mon amour,</h2>
+    <div class="letter-body" id="letterBody">
+En ce jour spécial, je voulais te dire à quel point tu es important(e) pour moi.
+
+Chaque moment passé avec toi est un cadeau. Tu illumines mes journées, tu fais battre mon cœur plus fort, et tu donnes un sens à ma vie.
+
+Merci d'être toi, merci pour ton sourire, merci pour ton amour, merci de me rendre la personne la plus heureuse du monde.
+
+Je t'aime plus que les mots ne peuvent le dire. ❤️
+    </div>
+    <p class="letter-signature">À toi, pour toujours 💕</p>
+  </div>
+  <button class="btn-next" onclick="goToCake()">Et maintenant... 🎂</button>
+</div>
+
+<!-- SCREEN 5: Cake -->
+<div class="screen" id="screen5">
+  <h2 class="cake-title">Joyeux Anniversaire ! 🎉</h2>
+  <p class="cake-subtitle">Souffle les bougies et fais un vœu ✨</p>
+  
+  <div class="cake-container">
+    <div class="candles" id="candles">
+      <div class="candle"><div class="flame" id="flame1"></div></div>
+      <div class="candle"><div class="flame" id="flame2"></div></div>
+      <div class="candle"><div class="flame" id="flame3"></div></div>
+      <div class="candle"><div class="flame" id="flame4"></div></div>
+      <div class="candle"><div class="flame" id="flame5"></div></div>
+    </div>
+    <div class="cake">
+      <div class="cake-decoration">❤️ 💖 💕 💖 ❤️</div>
+      <div class="cake-layer cake-top"></div>
+      <div class="cake-layer cake-middle"></div>
+      <div class="cake-layer cake-bottom"></div>
+    </div>
+  </div>
+  
+  <button class="blow-btn" id="blowBtn" onclick="blowCandles()">🌬️ Souffler les bougies</button>
+  
+  <p class="wish-text" id="wishText">
+    ✨ Que tous tes vœux se réalisent ✨<br>
+    Je t'aime mon amour 💕
+  </p>
+</div>
+
+<script>
+// ===== CONFIGURATION - MODIFIE ICI =====
+// Le code secret (change-le par la date qui vous unit, ex: 14022024)
+const SECRET_CODE = "14022024";
+// Le chemin de ta photo (remplace par l'URL de ta photo)
+const PHOTO_URL = "https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=400&h=400&fit=crop";
+// =======================================
+
+// Apply photo URL
+document.getElementById('photoImg').src = PHOTO_URL;
+
+// Create floating hearts
+function createHearts() {
+  const heartsBg = document.getElementById('heartsBg');
+  const heartEmojis = ['💖', '💕', '💗', '💝', '✨', '💫', '🌟'];
+  
+  setInterval(() => {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+    heart.style.left = Math.random() * 100 + '%';
+    heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+    heart.style.animationDuration = (Math.random() * 10 + 10) + 's';
+    heart.style.animationDelay = Math.random() * 3 + 's';
+    heartsBg.appendChild(heart);
+    
+    setTimeout(() => heart.remove(), 20000);
+  }, 500);
+}
+
+createHearts();
+
+// Moving NO button
+function moveNoButton() {
+  const btnNo = document.getElementById('btnNo');
+  const container = document.getElementById('buttonsContainer');
+  const containerRect = container.getBoundingClientRect();
+  const btnRect = btnNo.getBoundingClientRect();
+  
+  const maxX = window.innerWidth - btnRect.width - 20;
+  const maxY = window.innerHeight - btnRect.height - 20;
+  
+  let newX, newY;
+  let attempts = 0;
+  do {
+    newX = Math.random() * maxX;
+    newY = Math.random() * maxY;
+    attempts++;
+  } while (
+    attempts < 10 && 
+    newX > containerRect.left - 100 && newX < containerRect.right + 100 &&
+    newY > containerRect.top - 50 && newY < containerRect.bottom + 50
+  );
+  
+  btnNo.style.position = 'fixed';
+  btnNo.style.left = newX + 'px';
+  btnNo.style.top = newY + 'px';
+  btnNo.style.transition = 'all 0.3s ease';
+  
+  // Make YES button bigger
+  const btnYes = document.querySelector('.btn-yes');
+  const currentScale = parseFloat(btnYes.dataset.scale || 1);
+  btnYes.dataset.scale = Math.min(currentScale + 0.15, 1.6);
+  btnYes.style.transform = `scale(${btnYes.dataset.scale})`;
+}
+
+// Screen transitions
+function showScreen(screenId) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  setTimeout(() => {
+    document.getElementById(screenId).classList.add('active');
+  }, 100);
+}
+
+function goToCode() {
+  showScreen('screen2');
+  setTimeout(() => {
+    document.getElementById('codeInput').focus();
+  }, 1200);
+}
+
+function checkCode() {
+  const input = document.getElementById('codeInput').value;
+  const errorMsg = document.getElementById('errorMsg');
+  
+  if (input === SECRET_CODE) {
+    errorMsg.classList.remove('show');
+    showScreen('screen3');
+  } else {
+    errorMsg.classList.add('show');
+    document.getElementById('codeInput').value = '';
+    document.getElementById('codeInput').focus();
+  }
+}
+
+function goToLetter() {
+  showScreen('screen4');
+}
+
+function goToCake() {
+  showScreen('screen5');
+}
+
+let candlesBlown = 0;
+function blowCandles() {
+  const flames = ['flame1', 'flame2', 'flame3', 'flame4', 'flame5'];
+  
+  flames.forEach((id, index) => {
+    setTimeout(() => {
+      const flame = document.getElementById(id);
+      flame.classList.add('blown');
+      createSparkle(flame);
+    }, index * 300);
+  });
+  
+  setTimeout(() => {
+    document.getElementById('blowBtn').disabled = true;
+    document.getElementById('blowBtn').textContent = '🌟 Vœu exaucé 🌟';
+    document.getElementById('wishText').classList.add('show');
+    launchConfetti();
+  }, flames.length * 300 + 500);
+}
+
+function createSparkle(element) {
+  const rect = element.getBoundingClientRect();
+  for (let i = 0; i < 8; i++) {
+    const sparkle = document.createElement('div');
+    sparkle.className = 'sparkle';
+    sparkle.style.left = (rect.left + rect.width/2 + (Math.random() - 0.5) * 40) + 'px';
+    sparkle.style.top = (rect.top + rect.height/2 + (Math.random() - 0.5) * 40) + 'px';
+    sparkle.style.background = ['#ffd700', '#ff6b9d', '#fff'][Math.floor(Math.random() * 3)];
+    document.body.appendChild(sparkle);
+    setTimeout(() => sparkle.remove(), 1500);
+  }
+}
+
+function launchConfetti() {
+  const colors = ['#ff6b9d', '#ffd700', '#c44569', '#ff8fa3', '#fff', '#ffd1dc'];
+  for (let i = 0; i < 100; i++) {
+    setTimeout(() => {
+      const confetti = document.createElement('div');
+      confetti.className = 'confetti';
+      confetti.style.left = Math.random() * 100 + '%';
+      confetti.style.top = '-10px';
+      confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+      confetti.style.width = (Math.random() * 10 + 5) + 'px';
+      confetti.style.height = (Math.random() * 10 + 5) + 'px';
+      confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 4000);
+    }, i * 30);
+  }
+}
+
+// Touch support for mobile (moving button)
+document.getElementById('btnNo').addEventListener('touchstart', function(e) {
+  e.preventDefault();
+  moveNoButton();
+});
+</script>
+</body>
+</html>
+```
+
+✨ **Voici ce que j'ai créé pour toi :**
+
+🎁 **Étape 1 - Le suspense** : Une question "As-tu un message secret pour toi mon amour ?" avec un bouton **OUI** (qui grossit) et un bouton **NON** qui s'enfuit partout quand on essaie de cliquer dessus ! 😄
+
+🔐 **Étape 2 - Le code secret** : Un champ pour entrer un code (par défaut `14022024` - **tu peux le changer** dans le code)
+
+📸 **Étape 3 - La photo** : Une belle photo avec un cadre doré animé qui tourne
+
+💌 **Étape 4 - La lettre** : Une lettre romantique avec un fond papier vieilli
+
+🎂 **Étape 5 - Le gâteau** : Un gâteau avec 5 bougies qu'il faut souffler ! Avec des confettis et un message d'amour à la fin 💕
+
+**🔧 Pour personnaliser :**
+1. Change le `SECRET_CODE` par votre date spéciale
+2. Change le `PHOTO_URL` par le lien de votre photo
+3. Modifie le texte de la lettre dans le HTML
+
+Petit indice visible : "Format JJMMAAAA" pour l'aider à deviner 😉
